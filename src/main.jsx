@@ -1,5 +1,6 @@
-import { render } from 'preact'
+import ReactDOM from "react-dom";
 import App from "./views/App";
-import 'styles/index.sass';
+import "leaflet/dist/leaflet.css";
+import "./styles/index.css";
 
-render(<App />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById("app"));

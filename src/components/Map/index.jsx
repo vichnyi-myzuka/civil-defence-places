@@ -9,6 +9,7 @@ import CustomMarker from "../CustomIcon";
 
 export default function Map() {
 	const [map, setMap] = useState();
+	let i = 0;
 	let options = {
 		enableHighAccuracy: true,
 		timeout: 5000,
@@ -43,7 +44,7 @@ export default function Map() {
 
 	function getPlaceComponent(place) {
 		return (
-			<CustomMarker map={map} position={place.coords}>
+			<CustomMarker map={map} key={i++} position={place.coords}>
 				<h2>{place.title}</h2>
 				<p>{place.address}</p>
 			</CustomMarker>

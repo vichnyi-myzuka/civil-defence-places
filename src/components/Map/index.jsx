@@ -53,7 +53,6 @@ export default function Map() {
 
 	return (
 		<MapContainer
-			scrollWheelZoom={false}
 			whenCreated={setMap}
 			doubleClickZoom
 			center={coords}

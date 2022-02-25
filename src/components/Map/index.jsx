@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Circle } from "react-leaflet";
 import { useRef, useState } from "react";
 import Places from "../../places";
 import L from "leaflet";
@@ -34,6 +34,8 @@ export default function Map() {
 		setLatitude(latitude);
 		setLongitude(longitude);
 		setCoords(latitude, longitude);
+
+        console.log(latitude, longitude)
 	}
 
 	function error(err) {
@@ -53,6 +55,22 @@ export default function Map() {
 		);
 	}
 
+    function getCircleLocation() {
+        return (
+            <>
+                <Circle
+                    center={{lat:latitude, lng: longitude}}
+                    fillColor="red"
+                    radius={300}/>
+                <Circle
+                    center={{lat:latitude, lng: longitude}}
+                    fillColor="black"
+                    radius={30}/>
+            </>
+
+        )
+    }
+
 	return (
 		<MapContainer
 			whenCreated={setMap}
@@ -63,6 +81,7 @@ export default function Map() {
 			style={{ height: "100vh" }}
 		>
 			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {getCircleLocation()}
 			{Places.map((place) => getPlaceComponent(place))}
 			{SimplePlaces.map((place) => getPlaceComponent(place))}
 		</MapContainer>

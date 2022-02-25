@@ -1,12 +1,14 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Places from "../../places";
 import L from "leaflet";
 import SimplePlaces from "../../simple_places";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import CustomMarker from "../CustomIcon";
 
 export default function Map() {
+	const [map, setMap] = useState();
 	let options = {
 		enableHighAccuracy: true,
 		timeout: 5000,
@@ -41,17 +43,23 @@ export default function Map() {
 
 	function getPlaceComponent(place) {
 		return (
-			<Marker position={place.coords} style={{ opacity: 0.5 }}>
-				<Popup>
-					<h2>{place.title}</h2>
-					<p>{place.address}</p>
-				</Popup>
-			</Marker>
+			<CustomMarker map={map} position={place.coords}>
+				<h2>{place.title}</h2>
+				<p>{place.address}</p>
+			</CustomMarker>
 		);
 	}
 
 	return (
-		<MapContainer center={coords} zoom={14} style={{ height: "100vh" }}>
+		<MapContainer
+			scrollWheelZoom={false}
+			whenCreated={setMap}
+			doubleClickZoom
+			center={coords}
+			tap={false}
+			zoom={14}
+			style={{ height: "100vh" }}
+		>
 			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 			{Places.map((place) => getPlaceComponent(place))}
 			{SimplePlaces.map((place) => getPlaceComponent(place))}

@@ -22,6 +22,8 @@ export default function Map() {
 	let DefaultIcon = L.icon({
 		iconUrl: icon,
 		shadowUrl: iconShadow,
+		iconSize: [35, 54],
+		iconAnchor: [17, 54],
 	});
 
 	L.Marker.prototype.options.icon = DefaultIcon;

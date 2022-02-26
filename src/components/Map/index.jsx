@@ -3,8 +3,7 @@ import { useRef, useState } from "react";
 import Places from "../../places";
 import L from "leaflet";
 import SimplePlaces from "../../simple_places";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import icon from "../../assets/marker.png";
 import CustomMarker from "../CustomIcon";
 
 export default function Map() {
@@ -21,12 +20,14 @@ export default function Map() {
 
 	let DefaultIcon = L.icon({
 		iconUrl: icon,
-		shadowUrl: iconShadow,
-		iconSize: [35, 54],
-		iconAnchor: [17, 54],
+		iconSize: [50, 50],
+		iconAnchor: [25, 50],
 	});
 
+
 	L.Marker.prototype.options.icon = DefaultIcon;
+
+
 	const [coords, setCoords] = useState([latitude, longitude]);
 	function success(pos) {
 		let { latitude, longitude, accuracy } = pos.coords;
@@ -80,7 +81,7 @@ export default function Map() {
 			zoom={14}
 			style={{ height: "100vh" }}
 		>
-			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+			<TileLayer accessToken={"IXMsNEa8wAnqn95iBLIGDfRBvJeBYuJiDnSmByZjMU0hWJ10bqCnBRX0Wd5VWf4B"} url="https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token={accessToken}" />
             {getCircleLocation()}
 			{Places.map((place) => getPlaceComponent(place))}
 			{SimplePlaces.map((place) => getPlaceComponent(place))}
